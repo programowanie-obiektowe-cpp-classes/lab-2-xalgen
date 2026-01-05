@@ -30,4 +30,19 @@ public:
     ~ResourceManager() { 
         delete resource; 
     }
+
+    ResourceManager(ResourceManager&& arg) : resource(arg.resource) { arg.resource = nullptr; }
+
+    ResourceManager& operator=(ResourceManager&& arg)
+    {
+        if (this == &arg) {
+            return *this;
+        }
+
+        delete resource;
+        resource   = arg.resource;
+        arg.resource = nullptr;
+
+        return *this;
+    }
 };
